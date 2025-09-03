@@ -1,9 +1,9 @@
-# 📚 College Code Repository
+# College Code Repository
 
 Welcome to my **College Code Files** repository!  
 This repo contains all the programs, assignments, lab work, and projects I’ve worked on during my college journey.  
 
-## 🛠️ Languages & Tools
+##  Languages & Tools
 
 - **C / C++**
 - **Python**
@@ -14,7 +14,7 @@ This repo contains all the programs, assignments, lab work, and projects I’ve 
 
 ---
 
-## 🚀 How to Use
+##  How to Use
 
 1. Clone this repository:
    ```bash
@@ -30,7 +30,7 @@ bash
 Copy code
 gcc linked_list.c -o linked_list
 ./linked_list
-📘 Purpose
+ Purpose
 This repository is mainly for:
 
 📖 Academic reference
