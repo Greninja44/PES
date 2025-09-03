@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banana problem</title>
+</head>
+<body style="text-align: center;">
+    <div id="datetime" style="font-size:1.1rem;margin-bottom:1rem;"></div>
+    <h1>PES University Admission Form</h1>
+    <div class="container">
+        <form id="admissionForm" novalidate>
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Your name">
+                <span class="error" id="nameError"></span>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Your email">
+                <span class="error" id="emailError"></span>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="10-digit number">
+                <span class="error" id="phoneError"></span>
+            </div>
+            <div class="form-group">
+                <label for="profile">Profile Description</label>
+                <textarea id="profile" name="profile" rows="3" maxlength="250" placeholder="Tell us about yourself"></textarea>
+                <span class="error" id="profileError"></span>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+        <div class="preview">
+            <h2>Live Preview</h2>
+            <p><strong>Name:</strong> <span id="previewName"></span></p>
+            <p><strong>Email:</strong> <span id="previewEmail"></span></p>
+            <p><strong>Phone:</strong> <span id="previewPhone"></span></p>
+            <p><strong>Profile:</strong> <span id="previewProfile"></span></p>
+        </div>
+    </div>
+    <style>
+        body {
+            background: #181818;
+            color: #fff;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+        }
+        h1, h2 {
+            color: #fff;
+            letter-spacing: 1px;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        form {
+            background: #222;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+            min-width: 320px;
+            flex: 1 1 320px;
+            border: 1px solid #333;
+        }
+        .form-group {
+            margin-bottom: 1.2rem;
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 0.3rem;
+            font-weight: 500;
+            color: #fff;
+        }
+        input, textarea {
+            padding: 0.6rem;
+            border: 1px solid #444;
+            border-radius: 6px;
+            font-size: 1rem;
+            background: #111;
+            color: #fff;
+            transition: border-color 0.2s;
+        }
+        input:focus, textarea:focus {
+            border-color: #fff;
+            outline: none;
+        }
+        .error {
+            color: #ff5252;
+            font-size: 0.95rem;
+            height: 1.2em;
+        }
+        button[type="submit"] {
+            background: #fff;
+            color: #181818;
+            border: none;
+            padding: 0.8rem 1.7rem;
+            border-radius: 6px;
+            font-size: 1.05rem;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            transition: background 0.2s, color 0.2s;
+        }
+        button[type="submit"]:hover {
+            background: #181818;
+            color: #fff;
+            border: 1px solid #fff;
+        }
+        .preview {
+            background: #222;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+            min-width: 320px;
+            flex: 1 1 320px;
+            border: 1px solid #333;
+        }
+        .preview p, .preview h2 {
+            color: #fff;
+        }
+        @media (max-width: 800px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+    <script>
+        function showDateTime() {
+            var rightNow = new Date();
+            var result = "Date & Time: " + (rightNow.getMonth()+1) + "/" + rightNow.getDate() + "/" + rightNow.getFullYear() + ", " + rightNow.toLocaleTimeString();
+            document.getElementById('datetime').textContent = result;
+        }
+        showDateTime();
+        setInterval(showDateTime, 1000);
+        const fields = ["name", "email", "phone", "profile"];
+        fields.forEach(function(field) {
+            document.getElementById(field).addEventListener("input", function() {
+                document.getElementById("preview" + field.charAt(0).toUpperCase() + field.slice(1)).textContent = this.value;
+            });
+        });
+        const form = document.getElementById("admissionForm");
+        form.addEventListener("submit", function(e) {
+            let valid = true;
+            var name = form.name.value.trim();
+            var email = form.email.value.trim();
+            var phone = form.phone.value.trim();
+            var profile = form.profile.value.trim();
+            if (name === "") {
+                document.getElementById("nameError").textContent = "Please enter your name.";
+                valid = false;
+            } else {
+                document.getElementById("nameError").textContent = "";
+            }
+            if (email === "" || !email.includes("@")) {
+                document.getElementById("emailError").textContent = "Please enter a valid email.";
+                valid = false;
+            } else {
+                document.getElementById("emailError").textContent = "";
+            }
+            if (phone.length !== 10 || isNaN(phone)) {
+                document.getElementById("phoneError").textContent = "Please enter a 10-digit phone number.";
+                valid = false;
+            } else {
+                document.getElementById("phoneError").textContent = "";
+            }
+            if (profile.length < 10) {
+                document.getElementById("profileError").textContent = "Please write at least 10 characters about yourself.";
+                valid = false;
+            } else {
+                document.getElementById("profileError").textContent = "";
+            }
+            if (!valid) {
+                e.preventDefault();
+            } else {
+                alert("Thank you! Your form has been submitted.");
+                form.reset();
+                fields.forEach(function(field) {
+                    document.getElementById("preview" + field.charAt(0).toUpperCase() + field.slice(1)).textContent = "";
+                });
+            }
+        });
+    </script>
+</body>
+</html>
